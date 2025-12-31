@@ -5,10 +5,12 @@
 **Governance**
 
 
-
 ## Project Description
 
-This project presents a data-driven decision support system to help government authorities plan road maintenance in a more proactive and transparent manner. Instead of reacting only after accidents or complaints, the system evaluates road risk using accident history, traffic exposure, and weather impact. Based on this evaluation, it generates a prioritized list of road segments for maintenance within the available budget.
+Road maintenance is often handled only after accidents or public complaints, which can delay action on already unsafe roads. This project presents a simple, data-driven decision support system to help government authorities plan road maintenance more proactively and transparently.
+
+The system evaluates road risk using factors such as accident history, traffic exposure, and weather impact. Based on this analysis, it produces a prioritized list of road segments that can be repaired within the available budget.
+
 
 
 ## Problem Statement
