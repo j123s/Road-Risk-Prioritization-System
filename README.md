@@ -46,7 +46,7 @@ Where:
 
 The weights are configurable and sum to 1, making the prioritization logic **clear, explainable, and suitable for an initial prototype**.
 
----
+
 
 ## System Flow (Round-1)
 ![System Flowchart](flowchart.png)
@@ -118,7 +118,7 @@ This ensures consistent and safety-focused decision-making.
 
 
 
-## Prototype (Round-1)
+## Prototype
 
 For Round-1, the prototype focuses on **demonstrating the core decision logic only**, rather than full system deployment.
 
