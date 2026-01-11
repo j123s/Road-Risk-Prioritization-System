@@ -1,147 +1,240 @@
+---
 
-# Road Infrastructure Risk & Repair Prioritization System
+# 🛣️ Road Infrastructare Risk & Repair Prioritzation System
+**Domain:** Smart Governance / Infrastructure Planning
 
-## Domain
-**Governance**
+---
 
+## 1. Overview
 
-## Project Description
+This project is a web-basd decision support system that helps government authoities **prioritize road repairs objectively** using data instead of manual judgment or reactive complaints.
 
-Road maintenance is often handled only after accidents or public complaints, which can delay action on already unsafe roads. This project presents a simple, data-driven decision support system to help government authorities plan road maintenance more proactively and transparently.
+The system analyzes road safety indictors such as **accident history**, **traffic exposure**, and **weather vulnerability**, and then produces a **budget-aware repair priority list**.
 
-The system evaluates road risk using factors such as accident history, traffic exposure, and weather impact. Based on this analysis, it produces a prioritized list of road segments that can be repaired within the available budget.
+It supports real-world usage by allowing **CSV uploads**, **interactive maps**, and **visual risk summaries**.
 
+---
 
+## 2. Problem Statement
 
-## Problem Statement
+Urban road maintnance is often reactive and constrained by limited budgets. As a result:
 
-In many cities, road maintenance decisions are taken only after accidents occur or when a large number of complaints are received. This reactive approach delays action even when some roads are already unsafe and likely to deteriorate further. As a result, high-risk road segments remain unnoticed until serious damage or accidents happen.
+* High-risk roads may remain unattended
+* Repair decisions lack transparency
+* Funds are not optimally allocated
 
-Additionally, authorities operate under limited maintenance budgets and often lack a clear, data-driven method to decide which roads should be repaired first. This leads to inefficient use of public funds and inconsistent road safety outcomes.
+There is a need for a **simple, explainable and data-driven system** that assists authorities in identifying:
 
+* Which roads are most risky
+* How severe the risk is
+* Which roads can realistically be repaired within a budget
 
-## Proposed Solution
+---
 
-The proposed system shifts road maintenance planning from a complaint-driven approach to a **risk-based decision model**. It analyzes accident data, traffic volume, and weather vulnerability to compute a **Risk Score** for each road segment.
+## 3. Proposed Solution
 
-Roads are ranked based on this score, and a **priority repair list** is generated according to the available maintenance budget. The system focuses on **decision support rather than automation** in Round-1.
+The system functions as a **decision support tool** that:
 
+1. Accepts road data through CSV files
+2. Validates and processes the data
+3. Calculates a Risk Score for each road
+4. Ranks roads based on severity
+5. Selects roads within the available budget
+6. Visualizes results using charts and maps
 
+This ensures **fair, consistent and transparent planning**.
 
-## Risk Score Formulation
+---
 
-To ensure transparency and avoid subjective decision-making, the system calculates a Risk Score using a simple weighted combination of key factors:
+## 4. System Architecture
 
-**RS = (w₁ × A) + (w₂ × T) + (w₃ × W)**
+The system consists of the following components:
 
-Where:
+* Web Dashboard (HTML, CSS, JavaScript)
+* Flask Backend API
+* Risk Calculation Engine
+* CSV-based Data Store
+* Map & Visualization Layer
 
-* **A** = Normalized Accident Frequency (0–1)
-* **T** = Traffic Volume Index (0–1)
-* **W** = Weather Vulnerability Coefficient (0–1)
+**High-level Data Flow:**
+User → Web UI → Flask API → Risk Engine → Data Store → Flask API → Web UI → User
 
-**Example weight configuration:**
+---
 
-* Accidents: 0.5
-* Traffic: 0.3
-* Weather: 0.2
+## 5. Data Flow Diagrams
 
-The weights are configurable and sum to 1, making the prioritization logic **clear, explainable, and suitable for an initial prototype**.
+### DFD Level-0 (Context Diagram)
 
+Shows interaction between:
 
+* Government Authority
+* Road Risk Prioritization System
+* CSV Data Source
 
-## System Flow (Round-1)
-![System Flowchart](flowchart.png)
+**Inputs:**
+Area, Zone, Budget, CSV File
 
+**Outputs:**
+Risk Scores, Priority Road List, Charts, Interactive Map
 
-**Flowchart Reference:**
-See `flowchart.png` in the repository.
+---
 
-**Flow Overview:**
+### DFD Level-1 (Detailed Flow)
 
-Start
-↓
-Collect Road Data
-↓
-Data Cleaning & Validation
-↓
-Analyze Risk Factors
-↓
-Calculate Risk Score for Each Road
-↓
-Rank Roads by Risk Level
-↓
-Input Available Maintenance Budget
-↓
-Select Roads Within Budget
-↓
-Generate Priority Repair List
-↓
-End
+Internal processes include:
 
+1. Data Input & Validation
+2. Risk Score Calculation
+3. Road Ranking & Budget Allocation
+4. Visualization & Reporting
 
+**Flow:**
+User & CSV → Validation → Data Store → Risk Engine → Ranking → Visualization → User
 
-## Flowchart Explanation (Round-1)
+---
 
-The system begins by collecting road-level data such as accident history, traffic volume, and weather impact. This data is cleaned and validated to ensure reliable analysis. Each road is evaluated by analyzing individual risk factors, which are combined to calculate a Risk Score.
+## 6. Risk Score Model
 
-Roads are then ranked based on their risk level. The available maintenance budget is applied to select the most critical roads, resulting in a prioritized repair list that supports informed decision-making.
+Each road is assigned a Risk Score using a weighted model:
 
+**Risk Score =**
+(w₁ × Accident Index) +
+(w₂ × Traffic Index) +
+(w₃ × Weather Vulnerability)
 
+All values are normalized to allow fair comparison.
+Weights are defined in the backend logic and can be adjusted by developers.
 
-## Key Features
+---
 
-* **Explainable Risk Scoring:** Clear and transparent prioritization logic
-* **Multi-Factor Risk Analysis:** Considers accidents, traffic, and weather
-* **Budget-Aware Prioritization:** Generates realistic repair lists
-* **Decision Support Focus:** Assists planners without over-automation
-* **Governance-Friendly Design:** Easy to interpret by non-technical stakeholders
+## 7. Budget-Aware Prioritization
 
+After ranking roads by risk severity, the system selects roads sequentially while ensuring the **total repair cost does not exceed the given budget**.
 
+This produces a **realistic and implementable repair plan**.
 
-## User Personas
+---
 
-* **City Planners:** Identify high-risk road segments and plan maintenance schedules
-* **Finance Officials:** Allocate limited budgets effectively
-* **Field Engineers:** Use prioritized repair lists for maintenance execution
+## 8. Data Storage
 
-This ensures decisions align with real administrative roles.
+CSV files are used as the primary data store to keep the system lightweight and easy to deploy.
 
+Users can:
 
+* Use the default dataset
+* Upload their own CSV files
 
-## Edge Case Handling
+---
 
-If multiple roads receive similar Risk Scores:
+## 9. CSV Input Format
 
-1. Priority is given to the road with higher accident frequency
-2. Traffic exposure is used as a secondary criterion
+**Required Columns:**
 
-This ensures consistent and safety-focused decision-making.
+```
+road_id
+road_name
+area
+zone
+latitude
+longitude
+accidents
+traffic
+weather_vulnerability
+repair_cost
+```
 
+**Example:**
 
+```
+1,MG Road,Bengaluru,Central,12.9716,77.5946,15,0.7,0.5,55000
+```
 
-## Prototype
+---
 
-For Round-1, the prototype focuses on **demonstrating the core decision logic only**, rather than full system deployment.
+## 10. Frontend & Visualization
 
-A minimal Python-based script (`prototype_demo.py`) is included in the repository. It uses **mock road data** to demonstrate:
+The dashboard provides:
 
-* Risk Score calculation
-* Road ranking
-* Cost-aware prioritization
+* Area & zone filters
+* CSV upload functionality
+* Budget input
+* Risk distribution charts
+* Interactive map displaying road locations
 
-**Scope Note:** Advanced components such as real-time data integration, predictive modeling, and automated feedback mechanisms are **conceptual only** and not implemented in the Round-1 prototype.
+This converts raw data into **actionable insights**.
 
+---
 
+## 11. Failure Handling
 
-## Planned Enhancements for Round-2
+The system validates uploaded CSV files and prevents processing of incomplete or invalid data.
+Only verified data is used for risk calculation.
 
-Future improvements include:
+---
 
-* Real-time data integration
-* Advanced budget optimization techniques
-* Predictive maintenance models
-* Role-based dashboards for stakeholders
-* **Post-Repair Impact Evaluation:** Assess changes in accident frequency and traffic conditions after repairs to inform future prioritization decisions.
+## 12. Scalability (Design Considerations)
 
+The system is designed to be extensible:
 
+* CSV storage can be replaced by databases
+* APIs can integrate live traffic or weather data
+* Risk engine remains independent of the UI
+
+---
+
+## 13. Team Contributions
+
+**Team Leader **
+**Member 1**
+
+* System integration 
+* Risk score model design
+* Backend API coordination
+* Git workflow & code reviews
+
+**Member 2**
+
+* Frontend UI development
+* Risk score model design
+* Data processing & CSV validation
+* Map & chart visualization
+
+**Member 3**
+
+ * Frontend UI development
+  * System architecture design
+
+**Member 4**
+
+
+ * Map & chart visualization
+* Documentation & conceptual database design
+
+All work was managed using feature branches and pull requests.
+
+---
+
+## 14. How to Run
+
+Install dependencies:
+
+```
+pip install -r backend/requirements.txt
+```
+
+Run the application:
+
+```
+python run.py
+```
+
+Open in browser:
+
+```
+http://localhost:5000
+```
+   
+
+* or help you **defend this in viva**
+
+Just say 👑
