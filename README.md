@@ -1,7 +1,7 @@
----
+
 
 # 🛣️ Road Infrastructare Risk & Repair Prioritzation System
-**Domain:** Smart Governance / Infrastructure Planning
+**Domain:** Governance / Infrastructure Planning
 
 ---
 
@@ -234,7 +234,3 @@ Open in browser:
 http://localhost:5000
 ```
    
-
-* or help you **defend this in viva**
-
-Just say 👑
