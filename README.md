@@ -59,6 +59,12 @@ The system consists of the following components:
 **High-level Data Flow:**
 User → Web UI → Flask API → Risk Engine → Data Store → Flask API → Web UI → User
 
+The diagram below illustrates the high-level structure of the system and the interaction between frontend, backend, risk engine, and data storage.
+
+![System Architecture Diagram](diagrams/system%20architecture.drawio.png)
+
+
+
 ---
 
 ## 5. Data Flow Diagrams
@@ -77,6 +83,11 @@ Area, Zone, Budget, CSV File
 **Outputs:**
 Risk Scores, Priority Road List, Charts, Interactive Map
 
+This diagram shows the system as a single process and its interaction with external entities.
+
+![DFD Level-0 Diagram](diagrams/DF-0.png)
+
+
 ---
 
 ### DFD Level-1 (Detailed Flow)
@@ -90,6 +101,11 @@ Internal processes include:
 
 **Flow:**
 User & CSV → Validation → Data Store → Risk Engine → Ranking → Visualization → User
+
+This diagram presents the internal data flow, including validation, risk calculation, ranking, and reporting.
+
+![DFD Level-1 Diagram](diagrams/DF-1.png)
+
 
 ---
 
